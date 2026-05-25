@@ -1,6 +1,6 @@
 # ads-creative
 
-> **AI ads creative — generate high-converting ad copy and campaigns with Claude**
+> **AI ads creative system — generate high-converting ad copy and creatives with Claude**
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat)
@@ -14,14 +14,14 @@
 
 | Concept | Description |
 |---|---|
-| **Ads** | Core ads capability for ads-creative workflows |
-| **Creative** | Core creative capability for ads-creative workflows |
-| **Copy** | Core copy capability for ads-creative workflows |
-| **Campaign** | Core campaign capability for ads-creative workflows |
-| **Meta** | Core meta capability for ads-creative workflows |
-| **Google** | Core google capability for ads-creative workflows |
-| **Social** | Core social capability for ads-creative workflows |
-| **Conversion** | Core conversion capability for ads-creative workflows |
+| **Ad Copy** | Platform-specific copy with psychological triggers |
+| **Creative Brief** | Visual direction for designer/AI generation |
+| **Hook** | Attention-grabbing opening lines |
+| **CTA** | Conversion-optimized call-to-action variations |
+| **Angle** | 10+ unique message angles per product |
+| **Audience** | Copy tailored per ICP segment |
+| **A/B Variants** | Automatic variant generation for testing |
+| **Compliance** | Platform policy checks before publish |
 
 ---
 
@@ -46,19 +46,19 @@ claude 'what can ads-creative do?'
 ## ☠️ STARTUPS / BUSINESSES
 
 - **Agencies**: automate ads workflows for clients at scale
-- **Founders**: ship creative features 10x faster with Claude
-- **Freelancers**: deliver copy work with AI-assisted precision
+- **Founders**: ship creative features 10x faster
+- **Freelancers**: deliver copy work with AI precision
 
 ---
 
 ## Features
 
-- Ads automation and orchestration
-- Creative automation and orchestration
-- Copy automation and orchestration
-- Campaign automation and orchestration
-- Meta automation and orchestration
-- Google automation and orchestration
+- Ads automation
+- Creative automation
+- Copy automation
+- Campaign automation
+- Meta automation
+- Google automation
 
 ---
 
@@ -74,9 +74,14 @@ cd ads-creative
 ## Usage
 
 ```bash
-# In Claude Code
-/ads-creative
-claude 'ads task here'
+# Activate skill in Claude Code
+claude --skill ads-creative "your task here"
+
+# Quick workflow
+claude "ads automation task"
+
+# Get help
+claude "what can ads-creative do?"
 ```
 
 ---
@@ -85,11 +90,11 @@ claude 'ads task here'
 
 | Variable | Description | Default |
 |---|---|---|
-| `API_KEY` | Primary API key for service access | Required |
+| `API_KEY` | Primary API key | Required |
 | `MODEL` | AI model to use | claude-3-5-sonnet |
-| `DEBUG` | Enable verbose debug output | false |
-| `MAX_TOKENS` | Max token budget per request | 8192 |
-| `TIMEOUT` | Request timeout in seconds | 30 |
+| `DEBUG` | Enable verbose debug | false |
+| `MAX_TOKENS` | Max token budget | 8192 |
+| `TIMEOUT` | Request timeout (sec) | 30 |
 | `LOG_LEVEL` | Logging verbosity | info |
 
 ---
@@ -98,40 +103,36 @@ claude 'ads task here'
 
 ```
 ads-creative/
-├── README.md           # This file
+├── README.md           # Documentation
 ├── SKILL.md            # Claude Code skill definition
-├── scripts/            # Automation and utility scripts
-├── templates/          # Output and prompt templates
-├── examples/           # Usage examples and demos
-├── tests/              # Unit and integration tests
+├── scripts/            # Automation scripts
+├── templates/          # Output templates
+├── examples/           # Usage examples
 └── docs/               # Extended documentation
-    ├── setup.md        # Setup guide
-    ├── api.md          # API reference
-    └── faq.md          # Frequently asked questions
 ```
 
 ---
 
 ## Examples
 
-### Basic Usage
+### Basic
 
 ```bash
-# Activate in Claude Code
-claude --skill ads-creative "your task here"
+# Simple task
+claude --skill ads-creative "ads task"
 
-# With options
-claude --skill ads-creative --verbose "detailed task"
+# Verbose
+claude --skill ads-creative --verbose "detailed creative task"
 ```
 
-### Advanced Workflow
+### Advanced Pipeline
 
 ```bash
-# Chain with other skills
+# Chain skills
 claude --skill ads-creative "step 1" | claude --skill summarize
 
-# Batch processing
-for item in list; do
+# Batch run
+for item in $(cat list.txt); do
   claude --skill ads-creative "process $item"
 done
 ```
@@ -142,18 +143,18 @@ done
 
 | Issue | Cause | Fix |
 |---|---|---|
-| Auth fails | Invalid/expired API key | Re-export key in shell profile |
-| Timeout error | Network latency or large payload | Increase TIMEOUT value |
-| Empty output | Prompt too vague | Add more context to request |
-| Rate limit hit | Too many requests | Add delay between calls |
-| Model error | Unsupported model version | Update MODEL variable |
+| Auth fails | Invalid API key | Re-export key in shell profile |
+| Timeout | Network or large payload | Increase TIMEOUT value |
+| Empty output | Prompt too vague | Add more context |
+| Rate limit | Too many requests | Add delay between calls |
+| Model error | Unsupported version | Update MODEL variable |
 | Import error | Missing dependency | Run pip install -r requirements.txt |
 
 ---
 
 ## Comparison
 
-| Feature | This Skill | Alternative A | Alternative B |
+| Feature | This Skill | Alt A | Alt B |
 |---|---|---|---|
 | Claude Code native | ✅ | ❌ | ✅ |
 | Auto-activation | ✅ | ✅ | ❌ |
@@ -163,23 +164,21 @@ done
 
 ---
 
-## Contributing
-
-1. Fork this repo
-2. Create feature branch: `git checkout -b feat/your-feature`
-3. Commit changes: `git commit -m 'feat: add feature'`
-4. Push: `git push origin feat/your-feature`
-5. Open PR
-
----
-
 ## Changelog
 
 | Version | Changes |
 |---|---|
-| v2.0 | Major refactor, Claude 4 support |
-| v1.5 | Added auto-activation keywords |
+| v2.0 | Claude 4 support, auto-activation |
+| v1.5 | Added keyword triggers |
 | v1.0 | Initial release |
+
+---
+
+## Contributing
+
+1. Fork → feature branch → commit → PR
+2. Follow conventional commits: `feat:`, `fix:`, `docs:`
+3. Add tests for new features
 
 ---
 
@@ -191,7 +190,7 @@ done
 
 ## 📜 License
 
-MIT — free to use, modify, and distribute.
+MIT — free to use, modify, distribute.
 
 ---
 
