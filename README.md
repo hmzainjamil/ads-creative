@@ -1,5 +1,13 @@
 # ads-creative
 
+<!-- HMZ PORTFOLIO CONTEXT START -->
+<p align="center"><a href="https://github.com/hmzainjamil/ads-creative">Repository</a> · <a href="https://github.com/hmzainjamil/ads-creative/issues">Issues</a> · <a href="https://github.com/hmzainjamil/ads-creative/commits/main">Commits</a></p>
+<p align="center"><img alt="Last commit" src="https://img.shields.io/github/last-commit/hmzainjamil/ads-creative.svg"> <img alt="Repository size" src="https://img.shields.io/github/repo-size/hmzainjamil/ads-creative.svg"> <img alt="Visibility" src="https://img.shields.io/badge/visibility-public-blue"> <img alt="Status" src="https://img.shields.io/badge/status-active-success"></p>
+> Portfolio context: active public repository. Technical scope and evidence below must remain consistent with the current source tree.
+<!-- HMZ PORTFOLIO CONTEXT END -->
+---
+
+
 > **Hollywood-grade ads from one prompt** - Claude Code skills + Arcads API wrapper that script, storyboard, render, and ship Meta/TikTok/YouTube ad creatives in minutes - UGC, motion, voiceover, captions, all by AI.
 
 <p align="center">
