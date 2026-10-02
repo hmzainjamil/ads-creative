@@ -1,65 +1,39 @@
-# Competitor Ads Scraper (Claude Code Template)
+# Meta Ads utility
 
-Pull your competitors' ads from the Meta Ad Library straight into Airtable — ad copy, headlines, creatives (images + videos), targeting, platforms, and more.
+Python utilities for a manual workflow around the Meta Ad Library API. They fetch ads for specified pages or discover candidate page IDs from a supplied website/keyword search, extract media URLs from snapshot pages with Selenium, save records to JSON, and optionally write records to Airtable. They do not publish or edit ads.
 
----
+## Requirements
 
-### Want to go deeper?
-This template is just one piece of the puzzle. Inside my **[Mr Paid Social community on Skool](https://skool.com/mrpaidsocial)** you'll get:
-- Hands-on help with this scraper (and every other AI ad tool I build)
-- A growing library of AI workflows for creative, copy, and media buying
-- Live trainings and a community of media buyers leveling up their Meta ads with AI
+- Python packages listed in `requirements.txt`
+- Chrome and ChromeDriver support for Selenium creative extraction
+- `META_ACCESS_TOKEN` for Meta Graph API requests
+- Optional `AIRTABLE_PAT` and an Airtable base ID for schema creation or record writes
+- Optional `openai-whisper` and ffmpeg for local video transcription
 
-**[Join us at skool.com/mrpaidsocial →](https://skool.com/mrpaidsocial)**
+No dependency lock or validated platform setup is included. Check current official Meta and Airtable documentation, access requirements, and terms before use.
 
----
+## Setup
 
-## Getting Started
+Create a local `.env` from the example and set credentials only when needed. Protect the token and grant least required access.
 
-### 1. Open Claude Code
-Open [Claude Code](https://claude.ai/code) (CLI, desktop app, or IDE extension).
+Inspect the available options before running:
 
-### 2. Paste this repo URL and say "set this up"
-That's it. Claude will clone the repo, install dependencies, walk you through API key setup, and get everything running.
+```sh
+python3 pull_ads.py --help
+python3 discover_competitors.py --help
+python3 setup_table.py --help
+```
 
----
+These commands have not been executed in this review. `pull_ads.py` requires `--pages`, writes JSON to `ads_output/ads.json` by default, and can request Airtable writes with `--write-to-airtable --base-id ...`. It uses Selenium to visit Meta Ad Library snapshot URLs unless `--skip-creatives` is set. The optional `--transcribe` path downloads video files and transcribes them locally with Whisper.
 
-## What you'll need
-- **Python 3.10+** — [python.org/downloads](https://www.python.org/downloads/)
-- **Google Chrome** — needed for extracting ad creatives (runs headless, you won't see a browser window)
-- **Meta access token** — free, takes 30 seconds: [developers.facebook.com/tools/explorer](https://developers.facebook.com/tools/explorer/)
-- **Airtable account + Personal Access Token** — free tier works: [airtable.com/create/tokens](https://airtable.com/create/tokens)
+## Data behavior
 
-## What you get
+The JSON/Airtable schema includes ad/page identifiers, copy, headlines, creative references, landing-page and Ad Library links, status/date fields, and some targeting or media metadata when present in API responses. Results depend on the API response and access available to the account; fields may be empty. The code does not establish that every field is available or accurate for every ad.
 
-A `Competitor Ads` Airtable table with 20 fields per ad:
+The competitor-discovery utility fetches a supplied website URL and uses text-derived keywords in API searches. Use only authorized public URLs; do not point it at internal services or private systems.
 
-| Field | Description |
-|---|---|
-| Competitor Ad Name | Auto-generated descriptive name |
-| Facebook Page | Page running the ad |
-| Creative | Image or video attachment (auto-downloaded) |
-| Ad Copy | Full ad text |
-| Headline / Description / CTA | Link preview fields |
-| Landing Page URL | Where the ad sends traffic |
-| Ad Library URL | Direct link to view in Meta's Ad Library |
-| Start Date / Last Seen Date | When the ad ran |
-| Active Status | Active or Inactive |
-| Platforms | Facebook, Instagram, Messenger, Audience Network, Threads |
-| Impressions | High / Medium / Low (derived from EU reach data) |
-| Target Ages / Locations | Audience targeting |
-| ...and more | Languages, EU Total Reach, Page ID, Ad Library ID |
+## Limits and review
 
-## Two ways to find competitors
+This tool collects third-party advertising material. Review platform terms, privacy, copyright, and permitted reuse before exporting, transcribing, or republishing results. API availability, permissions, endpoint versions, and terms can change.
 
-- **Direct** — give Claude a list of Facebook page names or IDs
-- **Discover** — give Claude a URL (like your website or a competitor's Skool page) and it will suggest relevant competitors automatically
-
-## How it works under the hood
-
-1. `pull_ads.py` calls the Meta Ad Library API (`ads_archive`) for each competitor
-2. Parallel headless Chrome workers extract creative images/videos from ad snapshots
-3. `pyairtable` batch-inserts all records directly to your Airtable base (~20 seconds for 100+ ads)
-4. A JSON backup is saved locally
-
-See [`CLAUDE.md`](./CLAUDE.md) for the full Claude Code runtime flow and [`META_ADS_LIBRARY_API.md`](./META_ADS_LIBRARY_API.md) for the API reference.
+No live API calls, browser sessions, Airtable writes, transcription, tests, or deployment were performed for this review. The repository has no documented release or support process.
