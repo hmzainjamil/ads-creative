@@ -1,156 +1,37 @@
 # ads-creative
 
-> **Hollywood-grade ads from one prompt** - Claude Code skills + Arcads API wrapper that script, storyboard, render, and ship Meta/TikTok/YouTube ad creatives in minutes - UGC, motion, voiceover, captions, all by AI.
+This repository groups three separate advertising tools. It is not one integrated creative pipeline, and no end-to-end workflow has been tested.
 
-<p align="center"><a href="https://github.com/hmzainjamil/ads-creative">Repository</a> · <a href="https://github.com/hmzainjamil/ads-creative/commits/main">Commits</a> · <a href="https://github.com/hmzainjamil/ads-creative/issues">Issues</a></p>
-<p align="center"><img alt="Documentation" src="https://img.shields.io/badge/documentation-deep%20editorial-lightgrey"> <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-active-success"></p>
-
-<!-- HMZ DEEP README v1 -->
-
-## At a glance
-
-| Field | Current state |
+| Component | What the tracked files contain |
 |---|---|
-| Repository | ads-creative |
-| Visibility | Public |
-| Lifecycle | Active |
-| Evidence basis | Current repository documentation and source-visible material |
+| [Arcads skill pack](arcads-claude-code/README.md) | Claude/Cursor guidance and scripts that authenticate to the Arcads external API, request media generation, and poll results. |
+| [Codex plugin snapshot](codex-plugin-cc/README.md) | Nested Node.js plugin project for using Codex from Claude Code. It carries its own package, tests, license, and upstream documentation. |
+| [Meta Ads utility](meta-ads-spy/README.md) | Python utilities that query Meta's Ad Library API, extract creatives from snapshot pages, write JSON, and optionally write records to Airtable. |
 
-## Why this exists
+## Current status
 
-**Hollywood-grade ads from one prompt** - Claude Code skills + Arcads API wrapper that script, storyboard, render, and ship Meta/TikTok/YouTube ad creatives in minutes - UGC, motion, voiceover, captions, all by AI.
+Reviewed 2026-10-02 against the full default-branch tree (340 entries; not truncated).
 
-The README describes the creative generation workflow and separates the existence of a rendering or scripting pipeline from claims about ad performance or platform outcomes.
+- The root directory has no shared runtime, installer, dependency manifest, or root license.
+- Arcads setup calls an external service and creates local configuration. API usage and credit costs depend on the account and provider.
+- Meta utility dependencies are listed in its own `requirements.txt`; no lock file is present there.
+- The nested Codex plugin has its own package scripts and test files. No tests or installs were run for this review.
+- Image/reference provenance and rights are not documented for every tracked asset. See [content review](CONTENT_REVIEW.md) and [provenance](PROVENANCE.md).
 
-## CONCEPTS
+## Start with a component guide
 
-| Concept | Location | Description |
-|---|---|---|
-| **Arcads skill** | `arcads-claude-code/CLAUDE.md` | Claude Code project guide - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/CLAUDE.md) |
-| **Agents spec** | `arcads-claude-code/AGENTS.md` | Creative agent definitions - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/AGENTS.md) |
-| **Settings** | `arcads-claude-code/.claude/settings.json` | Per-project Claude Code config - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/.claude/settings.json) |
-| **Cursor rules** | `arcads-claude-code/.cursor/rules/project-context.mdc` | Cursor sibling rules - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/.cursor/rules/project-context.mdc) |
-| **Env template** | `arcads-claude-code/.env.example` | ARCADS_API_KEY + ANTHROPIC_API_KEY - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/.env.example) |
-| **Master context** | `arcads-claude-code/MASTER_CONTEXT.template.md` | Brand/voice context template - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/MASTER_CONTEXT.template.md) |
-| **API logs** | `arcads-claude-code/logs/arcads-api.jsonl` | Replayable JSONL of every API call - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/logs/arcads-api.jsonl) |
-| **Aesthetics refs** | `arcads-claude-code/references/aesthetics` | UGC selfie / cinematic reference packs - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/references) |
-| **Logs README** | `arcads-claude-code/logs/README.md` | How logs are structured + replayed - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/logs/README.md) |
-| **Project README** | `arcads-claude-code/README.md` | Skill-pack quickstart - [Source](https://github.com/hmzainjamil/ads-creative/blob/main/arcads-claude-code/README.md) |
+There is no root-level install command. Read the component guide and its security notes before setting credentials or using live accounts:
 
-## HOW IT WORKS
+- [Arcads skill pack](arcads-claude-code/README.md)
+- [Meta Ads utility](meta-ads-spy/README.md)
+- [Bundled project provenance](PROVENANCE.md)
+- [Security and data handling](SECURITY.md)
 
-```
-+---------------------------------------------------------+
-|                       INPUT                             |
-|   Brand brief . product URL . audience persona . com|
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  ORIENT / PARSE                         |
-|   - Validate inputs                                     |
-|   - Load skill / agent / tool definitions               |
-|   - Resolve config + secrets from .env                  |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  PLAN (Claude Sonnet)                   |
-|   - Decompose goal into ordered subtasks                |
-|   - Pick model per task (Sonnet / Haiku / Tier-0)       |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  EXECUTE (parallel)                     |
-|   - Spawn sub-agents / call tools                       |
-|   - Stream tokens, persist artifacts                    |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  VERIFY                                 |
-|   - Lint / typecheck / visual diff / QA agent           |
-|   - On failure -> re-prompt with error context          |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  SHIP                                   |
-|   - Write to disk . commit . PR . upload                |
-+---------------------------------------------------------+
-```
+The Codex plugin README is preserved with the nested upstream project. Its subtree is not an exact copy of the current upstream revision; the recorded comparison is in [PROVENANCE.md](PROVENANCE.md).
 
-## Install
+## Scope limits
 
-```bash
-git clone https://github.com/hmzainjamil/ads-creative.git
-cd ads-creative
-
-# Per-repo install (try in order):
-bash install.sh 2>/dev/null || \
-npm install 2>/dev/null || \
-bun install 2>/dev/null || \
-pip install -r requirements.txt 2>/dev/null || true
-```
-
-Environment:
-
-```bash
-cp .env.example .env  # if present
-# fill ANTHROPIC_API_KEY at minimum
-```
-
-## Usage
-
-```bash
-# Claude Code skill packs:
-/skill-name "your goal"
-
-# CLI / scripts:
-python scripts/<script>.py --input ./input --output ./output
-
-# TypeScript projects:
-bun run dev    # or npm run dev
-```
-
-### Configuration knobs
-
-| Key | Default | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | - (required) | Claude API key |
-| `MODEL` | `claude-sonnet-4-7` | Default LLM |
-| `MODEL_FALLBACK` | `claude-haiku-4` | Cheaper fallback |
-| `MAX_TOKENS` | `8192` | Per-call ceiling |
-| `TEMPERATURE` | `0.2` | Determinism dial |
-| `LOG_LEVEL` | `info` | debug / info / warn / error |
-| `OUT_DIR` | `./out` | Where artifacts land |
-| `CACHE_DIR` | `.cache` | Prompt cache root |
-| `PARALLELISM` | `4` | Sub-agent concurrency |
-| `RETRY_MAX` | `3` | Per-call retry budget |
-| `TIMEOUT_S` | `120` | Per-call timeout |
-| `DRY_RUN` | `false` | Plan-only, no side effects |
-
-### Case 3 - DTC brand, ad creative testing
-
-- Before: $2K/month UGC creator retainer, 4 ads/month.
-- After: 30+ ad variants/week via Arcads + Claude, A/B-tested.
-- Result: 3x creative velocity, 41% lower CAC after 6 weeks.
-
-## Security
-
-- Never commit API keys. `.env` is in `.gitignore` by default.
-- Use [git-secret](https://git-secret.io/) or 1Password CLI for team secret sharing.
-- Review the QA / safety layer for any tool that writes to disk or runs shells (see `mac_safety.py` style guards).
-- Vulnerability reports: open a private GitHub Security Advisory.
-
-## Limitations
-
-- Generated creative quality depends on the connected models, media services, prompts, and inputs.
-- Platform delivery or ad performance is external to the repository.
-- Production claims require actual deployment and measured results.
-
-## Related
-
-- [Claude Code](https://docs.claude.com/en/docs/claude-code) - official docs
-- [Anthropic Console](https://console.anthropic.com) - API keys + billing
-- [Crawlee](https://crawlee.dev) - web scraping framework
-- [hmz-claude-code-best-practice](https://github.com/hmzainjamil/hmz-claude-code-best-practice) - sister repo
+No ad account publishing, campaign mutation, provider credential, Meta API query, Arcads generation, Airtable write, or deployment was verified. Platform access rules, vendor API behavior, available models, pricing, and legal requirements can change and must be checked with current official sources before use.
 
 ## Maintainer
 
