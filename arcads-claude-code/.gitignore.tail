@@ -3,6 +3,3 @@ scripts/generate-thumbnails.sh
 scripts/generate-thumbnails-*.sh
 scripts/generate-ab-variants*.sh
 scripts/regen-*.sh
-
-# Private Arcads request metadata and generated-asset URLs
-logs/*.jsonl
