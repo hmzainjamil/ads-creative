@@ -1,0 +1,2 @@
+# Runtime API records can contain asset/project identifiers, output URLs, and usage metadata.
+*.jsonl
